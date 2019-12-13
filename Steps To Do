@@ -1,0 +1,29 @@
+
+
+
+  1.  make the dev dir under /user/cloudera/  
+   hadoop fs -mkdir /user/cloudera/maxTemperature/
+
+  2.   chnage dir mode 
+     hadoop fs -chmod 777 /user/cloudera/maxTemperature/
+
+  3. copy the input file under that dir .
+     hadoop fs -put /home/cloudera/Desktop/maxTempInput /user/cloudera/maxTemperature/maxTempInput
+
+ 
+  4. check the copied file is available ?
+     hadoop fs -ls  /user/cloudera/maxTemperature/
+
+**  5. dont copy the jar on distributed env. this jar needs to be located on local env. otherwise u ll get "not a valid jar exception"
+    /home/cloudera/Desktop/MaxTemp.jar
+
+
+   6. run the command (*** specify fully qualified name of driver class & dont copy the jar on edge node.)
+
+  hadoop jar /home/cloudera/Desktop/maxTemp.jar MaxTemperatureDriver /user/cloudera/maxTemperature/maxTempInput /user/cloudera/maxTemperature/Output_Dir1  
+
+   7. check the output 
+   hadoop fs -cat /user/cloudera/maxTemperature/Output_Dir1/part-00000
+          
+
+8. check the jobstatus & logs of mapper & reducer(using loggerFactory ) using link http://quickstart.cloudera:19888/jobhistory/ .
